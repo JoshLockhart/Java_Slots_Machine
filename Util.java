@@ -4,38 +4,18 @@ import java.util.Scanner;
 
 public final class Util {
 
-
-
-    public static void clearScreen() {
-        for (int i = 0; i < 50; i++){
-            System.out.println();
-        }
-    }
-
-    public static void pressEnterToContinue() {
-        System.out.println("Press \"ENTER\" to continue...");
-        Scanner scanner = new Scanner(System.in);
-        scanner.nextLine();
+    static void showWalletBalanceMsg(int bal) {
         Util.clearScreen();
+        System.out.println("Your current Wallet Balance is $" + bal + ".\n");
     }
 
-    public static void displayChoiceError() {
+    static void showChoiceErrorMsg() {
         System.out.println("\nPlease select a valid choice.\n");
         Util.pressEnterToContinue();
         clearScreen();
     }
 
-    public static int getUserChoice() {
-        Scanner scan = new Scanner(System.in);
-        while (!scan.hasNextInt()) {
-            displayChoiceError();
-            scan.next();
-        }
-        int choice = scan.nextInt();
-        return choice;
-    }
-
-    public static void returnToMainMenu() {
+    static void showReturnToMainMenuMsg() {
         Util.clearScreen();
         System.out.println("Returning to Main Menu...\n");
         System.out.println("Press \"ENTER\" to continue...");
@@ -45,5 +25,25 @@ public final class Util {
     }
 
 
+    static void clearScreen() {
+        for (int i = 0; i < 50; i++){
+            System.out.println();
+        }
+    }
 
+    static void pressEnterToContinue() {
+        System.out.println("Press \"ENTER\" to continue...");
+        Scanner scanner = new Scanner(System.in);
+        scanner.nextLine();
+        Util.clearScreen();
+    }
+
+    static int getUserChoice() {
+        Scanner scan = new Scanner(System.in);
+        while (!scan.hasNextInt()) {
+            showChoiceErrorMsg();
+            scan.next();
+        }
+        return scan.nextInt();
+    }
 }
