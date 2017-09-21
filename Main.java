@@ -3,23 +3,26 @@ package jl.slotsmachine;
 public class Main {
 
     public static void main(String[] args) {
-        int walletBalance = 0;
-        boolean keepPlaying = true;
+        int walletBalance = 0,
+                walletChoice = 1,
+                rulesChoice = 2,
+                playChoice = 3;
+        boolean exitSlotsMachine = false;
 
         showWelcomeMsg();
-        while (keepPlaying) {
+        while (!exitSlotsMachine) {
             showMainMenu();
-            int choice = getMainMenuChoice();
-            if (choice == 1) {
-                walletBalance = Wallet.enterWallet(walletBalance);
-            } else if (choice == 2) {
+            int choice = getValidMainMenuChoice();
+            if (choice == walletChoice) {
+                walletBalance = Wallet.performWallet(walletBalance);
+            } else if (choice == playChoice) {
+                walletBalance = Play.performPlay(walletBalance);
+            } else if (choice == rulesChoice) {
                 displayRules();
-            } else if (choice == 3) {
-                walletBalance = Play.enterPlay(walletBalance);
             } else {
                 Util.clearScreen();
                 System.out.println("Thanks for playing!");
-                keepPlaying = false;
+                exitSlotsMachine = true;
             }
         }
     }
@@ -34,13 +37,8 @@ public class Main {
             System.out.println("  Menu\n----------\n1.) Wallet\n2.) Rules\n3.) Play\n4.) Quit\n\nType 1, 2, 3, or 4 and press Enter.\n");
         }
 
-        private static int getMainMenuChoice() {
+        private static int getValidMainMenuChoice() {
             int choice = Util.getUserChoice();
-            choice = verifyMainMenuChoice(choice);
-            return choice;
-        }
-
-        private static int verifyMainMenuChoice(int choice) {
             while (choice < 1 || choice > 4) {
                 Util.showChoiceErrorMsg();
                 showMainMenu();

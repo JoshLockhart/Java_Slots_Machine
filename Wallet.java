@@ -2,19 +2,21 @@ package jl.slotsmachine;
 
 class Wallet {
 
-    static int enterWallet(int wBal) {
-        boolean stayInWallet = true;
+    static int performWallet(int wBal) {
+        int addMoneyChoice = 1,
+                exitWalletChoice = 2;
+        boolean exitWallet = false;
 
         showWalletWelcomeMessage();
-        while (stayInWallet) {
+        while (!exitWallet) {
             Util.showWalletBalanceMsg(wBal);
             showWalletMenu();
-            int walletMenuChoice = getWalletMenuChoice();
-            if (walletMenuChoice == 1) {
+            int choice = getValidWalletMenuChoice();
+            if (choice == addMoneyChoice) {
                 wBal += WalletMoney.addWalletMoney(wBal);
-            } else if (walletMenuChoice == 2) {
+            } else if (choice == exitWalletChoice) {
                 Util.showReturnToMainMenuMsg();
-                stayInWallet = false;
+                exitWallet = true;
             }
         }
         return wBal;
@@ -29,13 +31,8 @@ class Wallet {
             System.out.println("Would you like to add money to your Wallet?\n\n1.) Yes\n2.) No\n\nType 1 or 2 and press Enter.\n\n");
         }
 
-        private static int getWalletMenuChoice() {
+        private static int getValidWalletMenuChoice() {
             int choice = Util.getUserChoice();
-            choice = verifyWalletMenuChoice(choice);
-            return choice;
-        }
-
-        private static int verifyWalletMenuChoice(int choice) {
             while (choice != 1 && choice != 2) {
                 Util.showChoiceErrorMsg();
                 showWalletMenu();

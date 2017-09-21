@@ -3,72 +3,68 @@ package jl.slotsmachine;
 class WalletMoney {
 
     static int addWalletMoney(int bal) {
-        boolean keepAddingMoney = true,
+        int amountToAdd = 0,
+                addCustomAmountChoice = 5;
+        boolean exitWalletMoney = false,
                 amountIsFinalized;
-        int amountToAdd = 0;
 
-        while (keepAddingMoney) {
+        while (!exitWalletMoney) {
             Util.showWalletBalanceMsg(bal);
-            showAddMoneyMenu();
-            int addMoneyMenuChoice = getAddMoneyMenuChoice();
-            if (addMoneyMenuChoice == 5) {
-                amountToAdd = WalletCustomAmount.getCustomAmount();
-                keepAddingMoney = false;
+            showAddWalletMoneyMenu();
+            int choice = getValidAddWalletMoneyMenuChoice();
+            if (choice == addCustomAmountChoice) {
+                amountToAdd = WalletCustomAmount.getValidCustomAmount();
+                exitWalletMoney = true;
             } else {
-                amountIsFinalized = WalletFinalization.finalizeAmount(addMoneyMenuChoice);
+                amountIsFinalized = WalletFinalization.checkIfUserWantsToFinalizeAmount(choice);
                 if (amountIsFinalized) {
-                    amountToAdd = setAmountToAdd(addMoneyMenuChoice);
-                    displayAmountAddedMsg(addMoneyMenuChoice);
+                    amountToAdd = setAmountToAdd(choice);
+                    displayAmountAddedMsg(choice);
                 }
-                keepAddingMoney = false;
+                exitWalletMoney = true;
             }
         }
         return amountToAdd;
     }
 
-        private static void showAddMoneyMenu() {
+        private static void showAddWalletMoneyMenu() {
             Util.clearScreen();
             System.out.println("How much money would you like to add to your Wallet?\n\n1.) $20\n2.) $50\n3.) $100\n4.) $500\n5.) Custom Amount\n\nType 1, 2, 3, 4, or 5 and press Enter.\n\n");
         }
 
-        private static int getAddMoneyMenuChoice() {
+        private static int getValidAddWalletMoneyMenuChoice() {
             int choice = Util.getUserChoice();
-            choice = verifyAddMoneyMenuChoice(choice);
-            return choice;
-        }
-
-        private static int verifyAddMoneyMenuChoice(int choice) {
             while (choice < 1 || choice > 5) {
                 Util.showChoiceErrorMsg();
-                showAddMoneyMenu();
+                showAddWalletMoneyMenu();
                 choice = Util.getUserChoice();
             }
             return choice;
         }
 
-        private static int setAmountToAdd(int amChoice) {
+        private static int setAmountToAdd(int choice) {
             int amountToAdd = 0;
-            if (amChoice == 1) {
+            if (choice == 1) {
                 amountToAdd = 20;
-            } else if (amChoice == 2) {
+            } else if (choice == 2) {
                 amountToAdd = 50;
-            } else if (amChoice == 3) {
+            } else if (choice == 3) {
                 amountToAdd = 100;
-            } else if (amChoice == 4) {
+            } else if (choice == 4) {
                 amountToAdd = 500;
             }
             return amountToAdd;
         }
 
-        private static void displayAmountAddedMsg(int amChoice) {
+        private static void displayAmountAddedMsg(int choice) {
             String amountMsg = null;
-            if (amChoice == 1) {
+            if (choice == 1) {
                 amountMsg = "$20 ";
-            } else if (amChoice == 2) {
+            } else if (choice == 2) {
                 amountMsg = "$50 ";
-            } else if (amChoice == 3) {
+            } else if (choice == 3) {
                 amountMsg = "$100 ";
-            } else if (amChoice == 4) {
+            } else if (choice == 4) {
                 amountMsg = "$500 ";
             }
             Util.clearScreen();
