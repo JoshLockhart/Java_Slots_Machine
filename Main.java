@@ -14,9 +14,9 @@ public class Main {
             showMainMenu();
             int choice = getValidMainMenuChoice();
             if (choice == walletChoice) {
-                walletBalance = Wallet.performWallet(walletBalance);
+                walletBalance = WalletSection.performWallet(walletBalance);
             } else if (choice == playChoice) {
-                walletBalance = Play.performPlay(walletBalance);
+                walletBalance = PlaySection.performPlay(walletBalance);
             } else if (choice == rulesChoice) {
                 displayRules();
             } else {

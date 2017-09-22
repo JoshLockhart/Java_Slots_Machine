@@ -2,7 +2,7 @@ package jl.slotsmachine;
 
 import java.util.Scanner;
 
-public final class Util {
+final class Util {
 
     static void showWalletBalanceMsg(int bal) {
         Util.clearScreen();
