@@ -49,7 +49,7 @@ public class Main {
                              + "1.) Wallet\n"
                              + "2.) Rules\n"
                              + "3.) Play\n"
-                             + "4.) Quit\n\n"
+                             + "4.) Exit\n\n"
                              + "Type 1, 2, 3, or 4 and press Enter.\n");
         }
 
