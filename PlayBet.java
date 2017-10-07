@@ -1,56 +1,54 @@
 package jl.slotsmachine;
 
-public class PlayBet {
+class PlayBet {
 
-    static int getValidBet(int wBal, int gChoice) {
-        Util.clearScreen();
-        Util.showWalletBalanceMsg(wBal);
-        showBetMsg(gChoice);
+    static int getValidBet(int balance, int gameChoice) {
+        displayBetMsg(balance, gameChoice);
         int bet = Util.getUserChoice();
-        if (GameChoice.isOneLineGame(gChoice)) {
-            while (bet < 1 || bet > wBal) {
-                showBetAmountErrorMsg(wBal, gChoice);
+        if (Game.isOneLineGame(gameChoice)) {
+            while (bet < 1 || bet > balance) {
+                displayBetAmountErrorMsg(balance, gameChoice);
                 bet = Util.getUserChoice();
             }
-        } else if (GameChoice.isThreeLineGame(gChoice)) {
-            while (bet < 1 || (bet * 3) > wBal) {
-                showBetAmountErrorMsg(wBal, gChoice);
+        } else if (Game.isThreeLineGame(gameChoice)) {
+            while (bet < 1 || (bet * 3) > balance) {
+                displayBetAmountErrorMsg(balance, gameChoice);
                 bet = Util.getUserChoice();
             }
         } else {
-            while (bet < 1 || (bet * 5) > wBal) {
-                showBetAmountErrorMsg(wBal, gChoice);
+            while (bet < 1 || (bet * 5) > balance) {
+                displayBetAmountErrorMsg(balance, gameChoice);
                 bet = Util.getUserChoice();
             }
         }
         return bet;
     }
 
-    private static void showBetMsg(int gChoice) {
-        if (GameChoice.isOneLineGame(gChoice)) {
+    private static void displayBetMsg(int balance, int gameChoice) {
+        Util.clearScreen();
+        Util.displayWalletBalanceMsg(balance);
+        if (Game.isOneLineGame(gameChoice)) {
             System.out.println("How much would you like to bet for the one line?\n");
-        } else if (GameChoice.isThreeLineGame(gChoice)) {
+        } else if (Game.isThreeLineGame(gameChoice)) {
             System.out.println("How much would you like to bet for each of the three lines?\n");
         } else {
             System.out.println("How much would you like to bet for each of the five lines?\n");
         }
     }
 
-    private static void showBetAmountErrorMsg(int wBal, int gChoice) {
+    private static void displayBetAmountErrorMsg(int balance, int gameChoice) {
         String msg;
-
-        if (GameChoice.isOneLineGame(gChoice)) {
+        if (Game.isOneLineGame(gameChoice)) {
             msg = "Minimum bet allowed is $1.\nMaximum bet allowed is your current Wallet balance.\nSelect a valid amount.\n";
-        } else if (GameChoice.isThreeLineGame(gChoice)) {
+        } else if (Game.isThreeLineGame(gameChoice)) {
             msg = "Minimum bet allowed is $1 for each line.\nMaximum bet cannot exceed 1/3 of your Wallet balance.\nSelect a valid amount.\n";
         } else {
             msg = "Minimum bet allowed is $1 for each line.\nMaximum bet cannot exceed 1/5 of your Wallet balance.\nSelect a valid amount.\n";
         }
         Util.clearScreen();
-        Util.showWalletBalanceMsg(wBal);
+        Util.displayWalletBalanceMsg(balance);
         System.out.println(msg);
         Util.pressEnterToContinue();
-        Util.showWalletBalanceMsg(wBal);
-        showBetMsg(gChoice);
+        displayBetMsg(balance, gameChoice);
     }
 }

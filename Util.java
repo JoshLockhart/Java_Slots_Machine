@@ -2,20 +2,19 @@ package jl.slotsmachine;
 
 import java.util.Scanner;
 
-final class Util {
+class Util {
 
-    static void showWalletBalanceMsg(int bal) {
-        Util.clearScreen();
+    static void displayWalletBalanceMsg(int bal) {
         System.out.println("Your current Wallet Balance is $" + bal + ".\n");
     }
 
     static void showChoiceErrorMsg() {
-        System.out.println("\nPlease select a valid choice.\n");
+        System.out.println("\nPlease select a valid choice!\n");
         Util.pressEnterToContinue();
         clearScreen();
     }
 
-    static void showReturnToMainMenuMsg() {
+    static void displayReturnToMainMenuMsg() {
         Util.clearScreen();
         System.out.println("Returning to Main Menu...\n");
         System.out.println("Press \"ENTER\" to continue...");

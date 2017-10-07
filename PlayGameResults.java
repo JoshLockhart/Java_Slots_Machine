@@ -5,13 +5,13 @@ import java.util.Random;
 
 class PlayGameResults {
 
-    static int showAndGetGameResults(int gChoice) {
+    static int displayAndGetGameResults(int gameChoice) {
         int nLinesWon;
 
-        if (GameChoice.isOneLineGame(gChoice)) {
+        if (Game.isOneLineGame(gameChoice)) {
             nLinesWon = showAndGetOneLineGameResults();
         } else {
-            nLinesWon = showAndGetThreeOrFiveLineGameResults(gChoice);
+            nLinesWon = showAndGetThreeOrFiveLineGameResults(gameChoice);
         }
         return nLinesWon;
     }
@@ -32,7 +32,7 @@ class PlayGameResults {
             return checkIfLineWins(iconOne, iconTwo, iconThree);
         }
 
-        private static int showAndGetThreeOrFiveLineGameResults(int gChoice) {
+        private static int showAndGetThreeOrFiveLineGameResults(int gameChoice) {
             int nLinesWon = 0;
             String[] icons = {"Diamond", "Cherry", "7s", "Bar", "Shamrock"};
             String[] randIcons = new String[9];
@@ -58,7 +58,7 @@ class PlayGameResults {
             nLinesWon += checkIfLineWins(iconFour, iconFive, iconSix);
             nLinesWon += checkIfLineWins(iconOne, iconTwo, iconThree);
             nLinesWon += checkIfLineWins(iconSeven, iconEight, iconNine);
-            if (GameChoice.isFiveLineGame(gChoice)) {
+            if (Game.isFiveLineGame(gameChoice)) {
                 nLinesWon += checkIfLineWins(iconFour, iconTwo, iconNine);
                 nLinesWon += checkIfLineWins(iconSix, iconTwo, iconSeven);
             }
